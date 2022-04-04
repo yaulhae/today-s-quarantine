@@ -30,7 +30,7 @@ const HomeWrapper = styled.div`
 `
 
 const Home: NextPage = () => {
- const {limitPeopleModal} = useSelector((state : RootState) => state.modal);
+ const {limitPeopleModal,locationTimeModal, quarantineModal} = useSelector((state : RootState) => state.modal);
 
 
 
@@ -45,8 +45,8 @@ const Home: NextPage = () => {
         <CoronaReport />
         <Footer />
         {limitPeopleModal && <SlidePeopleModal />}
-        <SlideLocationModal />
-        <SlideCoronaPassModal />
+        {locationTimeModal && <SlideLocationModal />}
+        {quarantineModal && <SlideCoronaPassModal />}
         <SlideNewsModal1 />
         <SlideNewsModal2 />
         <SlideNewsModal3 />

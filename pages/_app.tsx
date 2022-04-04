@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       overflow: ${(limitPeopleModal || locationTimeModal || quarantineModal || 소식1모달 || 소식2모달 || 소식3모달 || pcr모달 || 접촉자모달 || 해외입국자모달 || pcr확인서모달) ? 'hidden' : ''}
     }   */
     body {
-      overflow: ${배경화면모달 ? 'hidden' : ''}
+      overflow: ${(배경화면모달 || 소식1모달 || 소식2모달 || 소식3모달 || pcr모달 || 접촉자모달 || 해외입국자모달 || pcr확인서모달) ? 'hidden' : ''}
     }  
   ` 
 

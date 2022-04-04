@@ -122,12 +122,15 @@ const SlidePeopleModal = () => {
     const dispatch = useDispatch();
     const {limitPeopleModal} = useSelector((state: RootState) => state.modal);
     let [modalShow,setModalShow] = useState(false);
+    
     const peopleModal = useCallback(() => {
+        dispatch(modal.actions.set배경화면모달(null));
         setModalShow(false);
         setTimeout(() => dispatch(modal.actions.setPeoPleModal(null)),400);
     },[dispatch])
 
     useEffect(() => {
+        dispatch(modal.actions.set배경화면모달(null))
         setTimeout(() => {setModalShow(true)}, 4)
     },[]);
 

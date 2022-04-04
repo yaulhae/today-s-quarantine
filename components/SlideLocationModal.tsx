@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../reducers";
@@ -16,7 +16,7 @@ const SlideLocationModalWrapper = styled.div<{locationTimeModal:boolean}>`
         opacity: ${props => props.locationTimeModal && '1'};
         z-index: -1;
         z-index: ${props => props.locationTimeModal && '100'};
-        transition: all 0.1s;
+        transition: all 0.4s;
     }
     .slide-modal-wrapper {
         padding: 1.5em 2em 1em 2em;
@@ -103,13 +103,21 @@ const SlideLocationModalWrapper = styled.div<{locationTimeModal:boolean}>`
 const SlideLocationModal = () => {
     const dispatch = useDispatch();
     const {locationTimeModal} = useSelector((state: RootState) => state.modal)
-    
+    let [modalShow,setModalShow] = useState(false);
+
     const locationModal = useCallback(() => {
-        dispatch(modal.actions.setLocationTimeModal(null))
+        dispatch(modal.actions.set배경화면모달(null));
+        setModalShow(false);
+        setTimeout(() => dispatch(modal.actions.setLocationTimeModal(null)),400);
     },[dispatch])
 
+    useEffect(() => {
+        dispatch(modal.actions.set배경화면모달(null))
+        setTimeout(() => {setModalShow(true)}, 4)
+    },[]);
+
     return(
-        <SlideLocationModalWrapper locationTimeModal={locationTimeModal}>
+        <SlideLocationModalWrapper locationTimeModal={modalShow ?locationTimeModal : false}>
             <div className="background" onClick={locationModal}>
             </div>
             <div className="slide-modal-wrapper">

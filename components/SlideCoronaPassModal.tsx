@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../reducers";
@@ -12,11 +12,11 @@ const SlideCoronaPassModalWrapper = styled.div<{quarantineModal:boolean}>`
         left: 0;
         right: 0;
         background: rgba(0, 0, 0, 0.5);
-        transition: all 1s;
         z-index: -1;
         z-index: ${props => props.quarantineModal && '100'};
         opacity: 0;
         opacity: ${props => props.quarantineModal && '1'};
+        transition: all 0.4s;
     }
     .slide-modal-wrapper {
         padding: 1.5em 2em 4em 2em;
@@ -100,13 +100,21 @@ const SlideCoronaPassModalWrapper = styled.div<{quarantineModal:boolean}>`
 const SlideCoronaPassModal = () => {
     const dispatch = useDispatch();
     const {quarantineModal} = useSelector((state: RootState) => state.modal)
+    let [modalShow,setModalShow] = useState(false);
     
     const setQuarantineModal = useCallback(() => {
-        dispatch(modal.actions.setCoronaPassModal(null))
+        dispatch(modal.actions.set배경화면모달(null));
+        setModalShow(false);
+        setTimeout(() => dispatch(modal.actions.setCoronaPassModal(null)),400);
     },[dispatch])
 
+    useEffect(() => {
+        dispatch(modal.actions.set배경화면모달(null))
+        setTimeout(() => {setModalShow(true)}, 4)
+    },[]);
+
     return(
-        <SlideCoronaPassModalWrapper quarantineModal={quarantineModal}>
+        <SlideCoronaPassModalWrapper quarantineModal={modalShow ? quarantineModal : false}>
             <div className="background" onClick={setQuarantineModal}>
             </div>
             <div className="slide-modal-wrapper">
